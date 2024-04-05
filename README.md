@@ -4,6 +4,7 @@ My-mini-Projects is a collection of small and fun projects I have created using 
 - A Rock-Paper-Scissor game written in C++ that can be played on the terminal
 - A CLI tic-tac-toe game with the option to select the intelligence level of the computer
 - A faux piano
+- Ping-Pong Game (Basic and Boring rn, will be improved later)
 - 
 - (others coming up)
 
