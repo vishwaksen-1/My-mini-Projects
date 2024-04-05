@@ -3,7 +3,8 @@ My-mini-Projects is a collection of small and fun projects I have created using 
 
 - A Rock-Paper-Scissor game written in C++ that can be played on the terminal
 - A CLI tic-tac-toe game with the option to select the intelligence level of the computer
--
+- A faux piano
+- 
 - (others coming up)
 
 These projects are open source and licensed under the GNU GPLv3 License, which means anyone can use, modify, and distribute them freely. I welcome any feedback, suggestions, or contributions from other developers who are interested in these projects. You can find the source code, documentation, and instructions on how to run these projects on my GitHub repository.
