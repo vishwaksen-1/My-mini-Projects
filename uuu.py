@@ -210,11 +210,15 @@ class SemiSmartComputer(RandomComputer, SmartComputer):
     
 if __name__ == '__main__':
     lvl = float(input('Enter the intelligence level of the computer (1-10): '))
+    #making sure level entered is in range
+    while(1):
+        if lvl<1 or lvl>10:
+            lvl = float(input('Enter the intelligence level of the computer (1-10): '))
+        else:
+            break
     lvl = (lvl-1)/10
     x_player = HumanPlayer('X')
     o_player = SemiSmartComputer('O', lvl=lvl)
     
     t = TicTacToe()
     play(t, x_player, o_player, print_game=True)
-    
-    
