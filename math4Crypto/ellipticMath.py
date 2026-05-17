@@ -38,24 +38,6 @@ class EllipticPoints():
             R.name = f"[{a}]{self.name.split(']')[-1]}"
             return R
         return None
-
-    def _mul(self, a): # montgomery multiplication
-        # a is a binary number
-        if type(a) == int:
-            a = bin(a)
-            
-        R0 = self.clone()
-        R1 = R0.mul(2)
-        bits = a[2:]
-        n = len(bits)
-        for i in range(n-2, 0, -1):
-            if bits[i] == 0:
-                R0, R1 = R0.mul(2), (R0 + R1)
-            else:
-                R0, R1 = (R0 + R1), R1.mul(2)
-
-        R0.name = f"[{a}]{self.name.split(']')[-1]}"
-        return R0
     
     def inverse(self):
         return EllipticPoints(self.x, -(self.y) % self.N)
@@ -162,12 +144,7 @@ def main():
     assert (x + x) == EllipticPoints(7284, 2107)
     assert (x + y) == EllipticPoints(1024, 4440)
     
-    # assert p.mul(1337) == p._mul(1337)
-    (p._mul(1337))._printAll()
-    
-    print("---")
-    
-    p.mul(1337)._printAll()
+    assert p.mul(1337) == EllipticPoints(1089, 6931)
 
     print("All assertions passed")
 
