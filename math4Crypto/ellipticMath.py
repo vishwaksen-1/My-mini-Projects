@@ -1,6 +1,6 @@
 import copy
 from modMath import modInv, modSqrt
-
+from random import choice
 
 class EllipticPoints():
     # on an elliptic curve E : Y^2 = X^3 + aX + b mod N
@@ -39,6 +39,24 @@ class EllipticPoints():
             return R
         return None
 
+    def _mul(self, a): # montgomery multiplication
+        # a is a binary number
+        if type(a) == int:
+            a = bin(a)
+            
+        R0 = self.clone()
+        R1 = R0.mul(2)
+        bits = a[2:]
+        n = len(bits)
+        for i in range(n-2, 0, -1):
+            if bits[i] == 0:
+                R0, R1 = R0.mul(2), (R0 + R1)
+            else:
+                R0, R1 = (R0 + R1), R1.mul(2)
+
+        R0.name = f"[{a}]{self.name.split(']')[-1]}"
+        return R0
+    
     def inverse(self):
         return EllipticPoints(self.x, -(self.y) % self.N)
 
@@ -83,7 +101,8 @@ class EllipticPoints():
     def complete(self):
         if (self.x != None) and (self.y == None):
             y2 = (self.x**3 + self.a * self.x + self.b) % self.N
-            self.y = modSqrt(y2, self.N)
+            y = modSqrt(y2, self.N)
+            self.y = choice([y, (-y)%self.N]) # ;)
         self.isO = not any([self.x, self.y])
         self.isValid = self._check()
         
@@ -142,6 +161,13 @@ def main():
 
     assert (x + x) == EllipticPoints(7284, 2107)
     assert (x + y) == EllipticPoints(1024, 4440)
+    
+    # assert p.mul(1337) == p._mul(1337)
+    (p._mul(1337))._printAll()
+    
+    print("---")
+    
+    p.mul(1337)._printAll()
 
     print("All assertions passed")
 
